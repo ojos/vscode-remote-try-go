@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    image:          ojos/mysql:aurora2
+    container_name: db
+    user:           "1000:1000"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER:          sample
+      MYSQL_PASSWORD:      sample
+      MYSQL_DATABASE:      sample 
+      TZ:                  Asia/Tokyo
+    ports:
+      - 3306:3306
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "512m"
+        max-file: "3"
+    volumes:
+      - ../etc/mysql/mysql.conf.d:/etc/mysql/mysql.conf.d
+      - ../tmp/db:/var/lib/mysql
+      - ../tmp/log/db:/var/log/mysql
